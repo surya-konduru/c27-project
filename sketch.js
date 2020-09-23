@@ -11,63 +11,51 @@ var roof;
 var rope1, rope2, rope3, rope4, rope5;
 
 function setup() {
-	createCanvas(600, 400);
+  createCanvas(800, 700);
 
+  engine = Engine.create();
+  world = engine.world;
 
-	engine = Engine.create();
-	world = engine.world;
+  roof = new Roof(400, 100, 800, 30);
 
-	roof = new Roof(150, 30, 600, 15);
-	
-	bob1 = new Bob(120, 150, 30);
-	bob2 = new Bob(135, 150, 30);
-	bob3 = new Bob(150, 150, 30);
-	bob4 = new Bob(165, 150, 30);
-	bob5 = new Bob(180, 150, 30);
-	
-	rope1 = new Rope(bob1.body, roof.body, 120, 30);
-	rope2 = new Rope(bob2.body, roof.body, 135, 30);
-	rope3 = new Rope(bob3.body, roof.body, 150, 30);
-	rope4 = new Rope(bob4.body, roof.body, 165, 30);
-	rope5 = new Rope(bob5.body, roof.body, 180, 30);
+  bob1 = new Bob(325, 400, 15);
+  bob2 = new Bob(345, 400, 15);
+  bob3 = new Bob(365, 400, 15);
+  bob4 = new Bob(385, 400, 15);
+  bob5 = new Bob(405, 400, 15);
 
-	Engine.run(engine);
-  
-	}
+  rope1 = new Rope(bob1.body, roof.body, -50 * 2, 15);
+  rope2 = new Rope(bob2.body, roof.body, -50 * 1.5, 15);
+  rope3 = new Rope(bob3.body, roof.body, -50 * 1, 15);
+  rope4 = new Rope(bob4.body, roof.body, -50 * 0.5, 15);
+  rope5 = new Rope(bob5.body, roof.body, -50 * 0, 15);
+
+  Engine.run(engine);
+}
 
 
 function draw() {
   background("lightSkyBLue");
   Engine.update(engine);
-  
+
   roof.display();
   bob1.display();
   bob2.display();
   bob3.display();
   bob4.display();
   bob5.display();
-  			
+
   rope1.display();
   rope2.display();
   rope3.display();
   rope4.display();
   rope5.display();
 
-  if(keyWentDown("up")){
-	  rope1.up();
-	  bob2.setStatic(false);
-	  bob3.setStatic(false);
-	  bob4.setStatic(false);
-	  bob5.setStatic(false);
-  }
-  
   drawSprites();
-
 }
 
-  
- 
-
-
-
-
+function keyPressed() {
+  if (keyCode === UP_ARROW) {
+    Body.applyForce(bob1.body, bob1.body.position, { x: -20, y: -20 });
+  }
+}
